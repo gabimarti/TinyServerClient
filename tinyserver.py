@@ -10,9 +10,14 @@
 # email:        gabimarti at gmail dot com
 # GitHub:       https://github.com/gabimarti
 # Created:      03/08/2019
-# License:      GPLv3
+# Version:      1.0
+# License:      MIT License
 # Notes:        Inspired by Daniel Hnyk's tutorial
 #               http://danielhnyk.cz/simple-server-client-aplication-python-3/
+#
+#               Please feel free to contact me if you wish to make any suggestions or send me any comments.
+#               If you use this code or part of it for any project of yours, I would like to hear from it.
+#               I will be glad to know that it has been useful to you.
 # -----------------------------------------------------------------------------------------------------------
 #
 
@@ -107,7 +112,7 @@ def client_thread(conn, ip, port, buffer_size, verbose, kill_message):
     # the input is in bytes, so decode it
     input_from_client_bytes = conn.recv(max_buffer_size)
     if not input_from_client_bytes:
-        print_verbose('No data. from {}:{}'.format(ip,port), 1, verbose)
+        print_verbose('No data. from {}:{}'.format(ip, port), 1, verbose)
 
     # max_buffer_size indicates how big the message can be
     # this is test if it's sufficiently big

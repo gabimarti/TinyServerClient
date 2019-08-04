@@ -10,9 +10,14 @@
 # email:        gabimarti at gmail dot com
 # GitHub:       https://github.com/gabimarti
 # Created:      04/08/2019
-# License:      GPLv3
+# Version:      1.0
+# License:      MIT License
 # Notes:        Inspired by Daniel Hnyk's tutorial
 #               http://danielhnyk.cz/simple-server-client-aplication-python-3/
+#
+#               Please feel free to contact me if you wish to make any suggestions or send me any comments.
+#               If you use this code or part of it for any project of yours, I would like to hear from it.
+#               I will be glad to know that it has been useful to you.
 # -----------------------------------------------------------------------------------------------------------
 #
 
@@ -61,13 +66,6 @@ time_start = 0                                              # Simply to measure 
 def print_verbose(msg, verbose_level, established_verbose):
     if verbose_level <= established_verbose:
         print(msg)
-
-
-# Wait for the indicated time in milliseconds
-def delay_milliseconds(millisec):
-    if millisec == 0:
-        return None                                         # Avoid making unnecessary call
-    time.sleep(millisec / 1000)
 
 
 # Parse command line parameters
