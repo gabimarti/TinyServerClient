@@ -44,7 +44,7 @@ DEFAULT_HOST_BIND = ''                                      # Bind to all ports
 DEFAULT_PORT = 6666                                         # Default port
 DEFAULT_KILL_MESSAGE = 'kill'                               # If this message is received, the server will end.
 DEFAULT_MAX_BUFFER_SIZE = 4096                              # Default max buffer size
-ENCODING = 'utf-8'                                          # EncodinG for message communication
+ENCODING = 'utf-8'                                          # Encoding for message communication
 SHUTDOWN_RESPONSE = 'Shutting down the server'              # Shutdown response to client
 
 
