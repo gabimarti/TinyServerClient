@@ -24,7 +24,7 @@ Part of the creation of this code has been inspired by the publication of the fo
 http://danielhnyk.cz/simple-server-client-aplication-python-3/
 
 # Contact
-email: gabrielmarti (at) gmail (dot) com
+email: gabimarti (at) gmail (dot) com
 
 twitter: @gmarti
                 
