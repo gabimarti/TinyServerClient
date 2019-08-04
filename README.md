@@ -19,7 +19,7 @@ If you use this code or part of it for any project of yours, I would like to hea
 I will be glad to know that it has been useful to you.
 
 # References
-Part of the creation of this code has been inspired by the publication of the following blog by Daniel Hnyk.
+Part of the creation of this code has been inspired by the publication of the following blog by Daniel Hnyk (@hnykda).
 
 http://danielhnyk.cz/simple-server-client-aplication-python-3/
 
