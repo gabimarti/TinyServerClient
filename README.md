@@ -65,6 +65,7 @@ Part of the creation of this code has been inspired by the publication of the fo
 
 http://danielhnyk.cz/simple-server-client-aplication-python-3/
 
+And from here I appreciate his comments and suggestions to my first version of the code.
 
 # Contact
 email: gabimarti (at) gmail (dot) com

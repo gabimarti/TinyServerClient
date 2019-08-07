@@ -9,10 +9,17 @@
 # Author:       Gabriel Marti Fuentes
 # email:        gabimarti at gmail dot com
 # GitHub:       https://github.com/gabimarti
-# Created:      04/08/2019 v1.0
-# Version:      1.0.1
+# Created:      04/08/2019
+# Version:      1.0
 # License:      MIT License
+# Notes:        Inspired by Daniel Hnyk's tutorial
+#               http://danielhnyk.cz/simple-server-client-aplication-python-3/
+#
+#               Please feel free to contact me if you wish to make any suggestions or send me any comments.
+#               If you use this code or part of it for any project of yours, I would like to hear from it.
+#               I will be glad to know that it has been useful to you.
 # -----------------------------------------------------------------------------------------------------------
+#
 
 
 import argparse
@@ -65,15 +72,15 @@ def print_verbose(msg, verbose_level, established_verbose):
 def parse_params():
     parser = argparse.ArgumentParser(description=DESCRIPTION, epilog=EPILOG)
     parser.add_argument('-s', '--hostserver', type=str, default=DEFAULT_HOST_CONNECT,
-                        help='Host to connect. Default {}'.format(DEFAULT_HOST_CONNECT))
+                        help='Host to connect. Default %s ' % DEFAULT_HOST_CONNECT)
     parser.add_argument('-p', '--port', type=int, default=DEFAULT_PORT,
-                        help='Port to connect. Default value: {}'.format(DEFAULT_PORT))
+                        help='Port to connect. Default value: %s ' % str(DEFAULT_PORT))
     parser.add_argument('-b', '--buffersize', type=int, default=DEFAULT_MAX_BUFFER_SIZE,
-                        help='Buffer size. Default value: {}'.format(DEFAULT_MAX_BUFFER_SIZE))
+                        help='Buffer size. Default value: %s ' % str(DEFAULT_MAX_BUFFER_SIZE))
     parser.add_argument('-m', '--message', type=str, default=DEFAULT_KILL_MESSAGE,
-                        help='Message to send to the server. Default value: \'{}\''.format(DEFAULT_KILL_MESSAGE))
+                        help='Message to send to the server. Default value: \'%s\'' % str(DEFAULT_KILL_MESSAGE))
     parser.add_argument('-v', '--verbose', type=int, choices=[0, 1, 2], default=DEFAULT_VERBOSE_LEVEL,
-                        help='Increase output verbosity. Default value: {}'.format(DEFAULT_VERBOSE_LEVEL))
+                        help='Increase output verbosity. Default value: %s' % DEFAULT_VERBOSE_LEVEL)
     args = parser.parse_args()
     return args
 
@@ -98,11 +105,11 @@ def start_client():
         message = DEFAULT_MESSAGE_IF_EMPTY
         print_verbose('Message is empty. Setting to \'{}\''.format(message), 1, verbose)
 
-    print('Verbose level {}'.format(VERBOSE_LEVEL_DESCRIPTION[verbose]))
-    print('Connect to Host {}'.format(host_connect))
-    print('Server Port {}'.format(server_port))
-    print('Buffer size {} bytes'.format(buffer_size))
-    print('Message to send \'{}\''.format(message))
+    print('Verbose level %s ' % str(VERBOSE_LEVEL_DESCRIPTION[verbose]))
+    print('Connect to Host %s' % host_connect)
+    print('Server Port %d' % server_port)
+    print('Buffer size %d bytes' % buffer_size)
+    print('Message to send \'%s\'' % message)
     print('Starting Client ...')
 
     time_start = time.perf_counter()
@@ -122,7 +129,7 @@ def start_client():
         print("Response from server is \'{}\'".format(response_string))
     except Exception as e:
         print('An error has occurred.')
-        print('Exception: {}'.format(e))
+        print('Exception : ' + str(e))
     finally:
         s.close()
 

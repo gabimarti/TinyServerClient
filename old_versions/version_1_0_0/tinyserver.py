@@ -9,10 +9,17 @@
 # Author:       Gabriel Marti Fuentes
 # email:        gabimarti at gmail dot com
 # GitHub:       https://github.com/gabimarti
-# Created:      03/08/2019 v1.0
-# Version:      1.0.1
+# Created:      03/08/2019
+# Version:      1.0
 # License:      MIT License
+# Notes:        Inspired by Daniel Hnyk's tutorial
+#               http://danielhnyk.cz/simple-server-client-aplication-python-3/
+#
+#               Please feel free to contact me if you wish to make any suggestions or send me any comments.
+#               If you use this code or part of it for any project of yours, I would like to hear from it.
+#               I will be glad to know that it has been useful to you.
 # -----------------------------------------------------------------------------------------------------------
+#
 
 
 import argparse
@@ -82,7 +89,7 @@ def kill_client_sockets():
 
 # Client input string processing
 def do_client_input_string_processing(input_string, verbose):
-    print_verbose('Processing {}'.format(input_string), 1, verbose)
+    print_verbose('Processing '+str(input_string), 1, verbose)
     # Reverse message
     input_processed = input_string[::-1]
     return input_processed
@@ -149,7 +156,7 @@ def client_thread(conn, ip, port, buffer_size, verbose, kill_message):
     thread_client_list.remove(conn)
     lock.release()
 
-    print_verbose('Connection to {}:{} ended'.format(ip, port), 1, verbose)
+    print_verbose('Connection ' + ip + ':' + port + " ended", 1, verbose)
 
 
 # Parse command line parameters
@@ -158,16 +165,16 @@ def parse_params():
     parser.add_argument('-i', '--interfacebind', type=str, default=DEFAULT_HOST_BIND,
                         help='What interface is it linked to? Default (empty) to any of this host.')
     parser.add_argument('-c', '--maxclients', type=int, default=DEFAULT_MAXCLIENTS,
-                        help='Indicates the maximum number of clients/threads. Default value: {}'
-                        .format(DEFAULT_MAXCLIENTS))
+                        help='Indicates the maximum number of clients/threads. Default value: %s '
+                             % str(DEFAULT_MAXCLIENTS))
     parser.add_argument('-p', '--serverport', type=int, default=DEFAULT_PORT,
-                        help='Port to listen. Default value: {}'.format(DEFAULT_PORT))
+                        help='Port to listen. Default value: %s ' % str(DEFAULT_PORT))
     parser.add_argument('-b', '--buffersize', type=int, default=DEFAULT_MAX_BUFFER_SIZE,
-                        help='Buffer size. Default value: {}'.format(DEFAULT_MAX_BUFFER_SIZE))
+                        help='Buffer size. Default value: %s ' % str(DEFAULT_MAX_BUFFER_SIZE))
     parser.add_argument('-k', '--killmessage', type=str, default=DEFAULT_KILL_MESSAGE,
-                        help='Message to kill server. Default value: \'{}\''.format(DEFAULT_KILL_MESSAGE))
+                        help='Message to kill server. Default value: \'%s\'' % str(DEFAULT_KILL_MESSAGE))
     parser.add_argument('-v', '--verbose', type=int, choices=[0, 1, 2], default=DEFAULT_VERBOSE_LEVEL,
-                        help='Increase output verbosity. Default value: {}'.format(DEFAULT_VERBOSE_LEVEL))
+                        help='Increase output verbosity. Default value: %s' % DEFAULT_VERBOSE_LEVEL)
     args = parser.parse_args()
     return args
 
@@ -200,12 +207,12 @@ def start_server():
     if max_clients < 1:                     # avoid zero division
         max_clients = DEFAULT_MAXCLIENTS
 
-    print('Verbose level {}'.format(VERBOSE_LEVEL_DESCRIPTION[verbose]))
-    print('Host bind {}'.format(host_bind))
-    print('Max {} Clients / Threads'.format(max_clients))
-    print('Server Port {}'.format(server_port))
-    print('Buffer size {} bytes'.format(max_buffer_size))
-    print('Kill message \'{}\''.format(kill_message))
+    print('Verbose level %s ' % str(VERBOSE_LEVEL_DESCRIPTION[verbose]))
+    print('Host bind %s' % host_bind)
+    print('Max %d Clients / Threads ' % max_clients)
+    print('Server Port %d' % server_port)
+    print('Buffer size %d bytes' % max_buffer_size)
+    print('Kill message \'%s\'' % kill_message)
     print('Starting Server ...')
     time_start = time.perf_counter()
 
@@ -218,8 +225,8 @@ def start_server():
         server.bind((host_bind, server_port))
         print_verbose('Socket bind completed', 2, verbose)
     except socket.error as msg:
-        print('Bind failed. Error Code: {} Message: {}'.format(msg[0], msg[1]))
-        print('Sys Error Info: {}'.format(sys.exc_info()))
+        print('Bind failed. Error Code : ' + str(msg[0]) + ' Message ' + msg[1])
+        print('Sys Error Info : ' + str(sys.exc_info()))
         sys.exit()
 
     # Start listening on socket
@@ -230,18 +237,19 @@ def start_server():
     while not shutdown:
         # Wait to accept a connection - blocking call
         try:
-            (conn, (ip, port)) = server.accept()
+            conn, addr = server.accept()
         except:
             break                                   # Possibly closed server
 
-        print('Accepting connection from {}:{}'.format(ip, port))
+        ip, port = str(addr[0]), str(addr[1])
+        print('Accepting connection from ' + ip + ':' + port)
         thread_counter += 1
         try:
             client = threading.Thread(target=client_thread,
                                       args=(conn, ip, port, max_buffer_size, verbose, kill_message))
             client.start()
         except Exception as e:
-            print('WTF Error! {}'.format(e))
+            print('WTF Error! '+str(e))
             traceback.print_exc()
 
     # Shutting down server
@@ -250,8 +258,8 @@ def start_server():
         server.shutdown(socket.SHUT_RDWR)
         server.close()
     except Exception as e:
-        print_verbose('Server already closed from client thread', 1, verbose)
-        print_verbose('Exception {}'.format(e), 2, verbose)
+        print_verbose("Server already closed from client thread", 1, verbose)
+        print_verbose("Exception {}".format(e), 2, verbose)
 
     print_verbose('At shutdown, total clients {} | Current active {}'.format(thread_counter,
                                                                              thread_active_counter),
