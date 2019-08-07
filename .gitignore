@@ -1,10 +1,6 @@
-# Netbeans
+# Some IDE folders: Netbeans, PyScripter, PyCharm
 nbproject/
-
-# PyScripter
 pyscripter/
-
-# PyCharm
 .idea/
 
 # Misc folders and files to ignore
